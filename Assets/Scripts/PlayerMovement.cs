@@ -2,28 +2,37 @@
 
 public class PlayerMovement : MonoBehaviour
 {
-    // 1. Khai báo biến để chứa cái khuôn đạn (Prefab)
     public GameObject bulletPrefab;
+
+    // --- 1. THÊM 2 BIẾN NÀY ĐỂ BẮN TỰ ĐỘNG ---
+    public float shootingInterval = 0.2f; // Tốc độ bắn (0.2 giây 1 viên)
+    private float lastBulletTime;         // Biến đếm thời gian
 
     void Update()
     {
-        // --- Code di chuyển cũ ---
+        // --- Code di chuyển cũ (Giữ nguyên) ---
         Vector3 mousePos = Input.mousePosition;
         mousePos.z = 10f;
         transform.position = Camera.main.ScreenToWorldPoint(mousePos);
 
-        // --- Code bắn đạn ---
-        // Khi nhấn chuột trái (0) hoặc phím Space
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
+        // --- Code bắn đạn (ĐÃ NÂNG CẤP) ---
+        // Đổi từ GetMouseButtonDown -> GetMouseButton (Để giữ chuột là bắn)
+        // Thêm điều kiện Input.GetKey(KeyCode.Space) nếu muốn giữ Space
+        if (Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space))
         {
-            Shoot();
+            // Kiểm tra xem đã "hồi chiêu" xong chưa
+            if (Time.time - lastBulletTime >= shootingInterval)
+            {
+                Shoot();
+            }
         }
     }
 
     void Shoot()
     {
-        // Câu lệnh thần thánh: Tạo ra vật thể từ Prefab
-        // Instantiate(Cái gì, Ở đâu, Xoay thế nào);
         Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        
+        // --- 2. CẬP NHẬT LẠI THỜI GIAN ---
+        lastBulletTime = Time.time;
     }
 }
