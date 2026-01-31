@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class EnemyShip : MonoBehaviour
 {
     public float speed = 5f;
-    public GameObject explosionPrefab; // <-- NEW: Chỗ để gắn hiệu ứng nổ
+    public GameObject explosionPrefab;
 
     void Update()
     {
@@ -18,10 +18,8 @@ public class EnemyShip : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // TRƯỜNG HỢP 1: Đâm trúng Đạn
         if (other.gameObject.name.Contains("Bullet"))
         {
-            // --- NEW: Tạo vụ nổ tại vị trí tàu địch ---
             if (explosionPrefab != null)
             {
                 Instantiate(explosionPrefab, transform.position, Quaternion.identity);
@@ -31,10 +29,8 @@ public class EnemyShip : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // TRƯỜNG HỢP 2: Đâm trúng Player
         else if (other.CompareTag("Player"))
         {
-            // --- NEW: Tạo vụ nổ tại chỗ Player chết ---
             if (explosionPrefab != null)
             {
                 Instantiate(explosionPrefab, other.transform.position, Quaternion.identity);
