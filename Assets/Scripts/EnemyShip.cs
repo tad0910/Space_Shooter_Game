@@ -1,44 +1,60 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+// Không cần SceneManager ở đây nữa, việc đó để Player lo
 
 public class EnemyShip : MonoBehaviour
 {
+    [Header("Movement")]
     public float speed = 5f;
-    public GameObject explosionPrefab;
+
+    [Header("Combat")]
+    public GameObject enemyBulletPrefab; // Kéo Prefab đạn đỏ vào đây
+    public float fireRate = 2f; // Bắn 2 giây 1 phát
+    private float nextFireTime = 0f;
 
     void Update()
     {
+        // 1. Di chuyển xuống dưới
         transform.Translate(Vector3.down * speed * Time.deltaTime);
+        if (transform.position.y < -10f) Destroy(gameObject);
 
-        if (transform.position.y < -10f)
+        // 2. Bắn súng (Code Mới)
+        if (Time.time >= nextFireTime)
         {
-            Destroy(gameObject);
+            Shoot();
+            nextFireTime = Time.time + fireRate;
         }
     }
 
+    void Shoot()
+    {
+        if (enemyBulletPrefab != null)
+        {
+            // Tạo đạn ngay tại vị trí của Enemy
+            Instantiate(enemyBulletPrefab, transform.position, Quaternion.identity);
+        }
+    }
+    // Xử lý va chạm
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.name.Contains("Bullet"))
+        // LƯU Ý: Ta KHÔNG xử lý va chạm với Bullet ở đây.
+        // Script Bullet đã tự xử lý việc đâm vào Enemy rồi (ở bài trước).
+        // Ở đây ta chỉ xử lý việc ĐÂM VÀO PLAYER (Cảm tử).
+
+        if (other.CompareTag("Player"))
         {
-            if (explosionPrefab != null)
+            // 1. Gây sát thương cho Player
+            Health playerHealth = other.GetComponent<Health>();
+            if (playerHealth != null)
             {
-                Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+                playerHealth.TakeDamage(10); // Player mất 10 máu
             }
 
-            Destroy(other.gameObject);
-            Destroy(gameObject);
-        }
-
-        else if (other.CompareTag("Player"))
-        {
-            if (explosionPrefab != null)
+            // 2. Enemy tự sát (Gọi TakeDamage lên chính mình)
+            Health myHealth = GetComponent<Health>();
+            if (myHealth != null)
             {
-                Instantiate(explosionPrefab, other.transform.position, Quaternion.identity);
+                myHealth.TakeDamage(9999); // Chết ngay lập tức
             }
-
-            Destroy(other.gameObject);
-            Destroy(gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 }

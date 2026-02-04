@@ -239,7 +239,8 @@ GameObject:
   - component: {fileID: 645307284}
   - component: {fileID: 645307286}
   - component: {fileID: 645307287}
-  m_Layer: 0
+  - component: {fileID: 645307288}
+  m_Layer: 7
   m_Name: Short-Lazer-Ship
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -328,6 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 5966619466660742467, guid: 8e2a614b4d6ac5d47b372458cd6939b5,
     type: 3}
+  shootingInterval: 0.2
 --- !u!61 &645307287
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -373,6 +375,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.048, y: 2.048}
   m_EdgeRadius: 0
+--- !u!114 &645307288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645307283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb75a5bc7ef82f43a0dc2251d138f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 30
+  explosionVFX: {fileID: 3660415817581436501, guid: f5bb02b27cc73704d8d7f7415537a92b,
+    type: 3}
 --- !u!1 &978396954
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +401,7 @@ GameObject:
   - component: {fileID: 978396955}
   - component: {fileID: 978396956}
   - component: {fileID: 978396957}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Engine_01_Basic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -480,7 +497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1617502420}
   - component: {fileID: 1617502419}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}

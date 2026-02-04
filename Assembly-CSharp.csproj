@@ -82,6 +82,8 @@
     <Compile Include="Assets\Space Shooter Template FREE\Scripts\Wave.cs" />
     <Compile Include="Assets\Scripts\ShowLog.cs" />
     <Compile Include="Assets\Space Shooter Template FREE\Scripts\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Health.cs" />
+    <Compile Include="Assets\Scripts\PlayerHealth.cs" />
     <Compile Include="Assets\Space Shooter Template FREE\Scripts\LevelController.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Space Shooter Template FREE\Scripts\VisualEffect.cs" />
