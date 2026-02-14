@@ -1,28 +1,31 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Dùng để load lại màn chơi
+using UnityEngine.SceneManagement;
 
-// Kế thừa từ class Health cha
 public class PlayerHealth : Health
 {
-    // Ghi đè hàm Die của cha
+    // [THÊM MỚI] Biến để chứa cái bảng Game Over
+    public GameObject gameOverCanvas; 
+
     protected override void Die()
     {
-        // 1. Vẫn gọi base.Die() để tạo hiệu ứng nổ và hủy tàu như bình thường
+        // 1. Hiện bảng Game Over lên
+        // Chúng ta làm việc này trước khi gọi base.Die() để đảm bảo nó chạy được
+        if (gameOverCanvas != null)
+        {
+            gameOverCanvas.SetActive(true);
+        }
+
+        // 2. Gọi hàm Die của cha (để tạo hiệu ứng nổ và hủy tàu)
         base.Die();
 
-        // 2. Thêm logic riêng của Player:
-        Debug.Log("GAME OVER !!!");
-        
-        // Gọi hàm Restart sau 1 giây (để kịp nhìn thấy nổ)
-        // Lưu ý: Vì object bị Destroy ngay ở base.Die(), ta phải dùng cách khác để delay.
-        // Tạm thời ta sẽ LoadScene ngay lập tức để em thấy hiệu quả.
-        
-        ReloadLevel();
+        // [QUAN TRỌNG] Xóa hoặc comment dòng ReloadLevel() đi
+        // Vì ta muốn dừng ở màn hình Game Over để người chơi bấm nút, chứ không tự load lại.
+        // ReloadLevel(); 
     }
 
+    // Hàm này tạm thời không dùng nữa, để đó hoặc xóa cũng được
     void ReloadLevel()
     {
-        // Load lại màn chơi hiện tại
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
