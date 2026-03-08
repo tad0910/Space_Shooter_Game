@@ -796,7 +796,6 @@ MonoBehaviour:
   maxHealth: 30
   explosionVFX: {fileID: 3660415817581436501, guid: f5bb02b27cc73704d8d7f7415537a92b,
     type: 3}
-  gameOverCanvas: {fileID: 2000323249}
 --- !u!1 &668962744
 GameObject:
   m_ObjectHideFlags: 0
@@ -931,6 +930,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 668962744}
   m_CullTransparentMesh: 1
+--- !u!1 &806669795
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 806669797}
+  - component: {fileID: 806669796}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &806669796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806669795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32b594b0df1629a40b1a46a8ae25d06e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 645307288}
+  gameOverUI: {fileID: 0}
+  bgMusic: {fileID: 333133760}
+--- !u!4 &806669797
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806669795}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.0615401, y: -1.2293261, z: -9.93418}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &978396954
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,3 +1380,4 @@ SceneRoots:
   - {fileID: 333133761}
   - {fileID: 2000323253}
   - {fileID: 457693359}
+  - {fileID: 806669797}

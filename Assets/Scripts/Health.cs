@@ -1,3 +1,4 @@
+using System; // Thêm thư viện này để dùng Action
 using UnityEngine;
 
 public class Health : MonoBehaviour
@@ -7,6 +8,9 @@ public class Health : MonoBehaviour
     [SerializeField] private GameObject explosionVFX; // Prefab hiệu ứng nổ
 
     private int currentHealth; // Máu hiện tại (chỉ code được sửa)
+
+    // Khai báo sự kiện onDead theo yêu cầu của slide
+    public Action onDead; 
 
     // Hàm khởi tạo
     void Start()
@@ -42,7 +46,10 @@ public class Health : MonoBehaviour
             Instantiate(explosionVFX, transform.position, transform.rotation);
         }
 
-        // 2. Hủy object này khỏi game
+        // 2. Kích hoạt sự kiện báo tử
+        onDead?.Invoke();
+
+        // 3. Hủy object này khỏi game
         Destroy(gameObject);
     }
 }

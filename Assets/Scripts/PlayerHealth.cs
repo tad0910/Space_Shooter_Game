@@ -1,31 +1,17 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class PlayerHealth : Health
 {
-    // [THÊM MỚI] Biến để chứa cái bảng Game Over
-    public GameObject gameOverCanvas; 
 
     protected override void Die()
     {
-        // 1. Hiện bảng Game Over lên
-        // Chúng ta làm việc này trước khi gọi base.Die() để đảm bảo nó chạy được
-        if (gameOverCanvas != null)
-        {
-            gameOverCanvas.SetActive(true);
-        }
+        // Các logic riêng biệt CHỈ dành cho Player khi chết có thể viết ở đây
+        // Ví dụ: Phát âm thanh tiếng thét của nhân vật, rung màn hình (Camera Shake)...
 
-        // 2. Gọi hàm Die của cha (để tạo hiệu ứng nổ và hủy tàu)
+        // Gọi hàm Die của class cha (Health) để: 
+        // 1. Sinh ra hiệu ứng nổ
+        // 2. Kích hoạt sự kiện onDead (để BattleFlow bật UI Game Over)
+        // 3. Hủy object (Destroy)
         base.Die();
-
-        // [QUAN TRỌNG] Xóa hoặc comment dòng ReloadLevel() đi
-        // Vì ta muốn dừng ở màn hình Game Over để người chơi bấm nút, chứ không tự load lại.
-        // ReloadLevel(); 
-    }
-
-    // Hàm này tạm thời không dùng nữa, để đó hoặc xóa cũng được
-    void ReloadLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
