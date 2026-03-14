@@ -1,55 +1,58 @@
-using System; // Thêm thư viện này để dùng Action
+using System; 
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
     [Header("Health Settings")]
-    [SerializeField] private int maxHealth = 100; // Máu tối đa, chỉnh trong Inspector
-    [SerializeField] private GameObject explosionVFX; // Prefab hiệu ứng nổ
+    // Đổi tên thành defaultHealthPoint và để public để HealthBar đọc được
+    public int defaultHealthPoint = 100; 
+    [SerializeField] private GameObject explosionVFX; 
 
-    private int currentHealth; // Máu hiện tại (chỉ code được sửa)
+    // Đổi currentHealth thành healthPoint và để public
+    public int healthPoint; 
 
-    // Khai báo sự kiện onDead theo yêu cầu của slide
+    // KHAI BÁO SỰ KIỆN
     public Action onDead; 
+    public Action onHealthChanged; // THÊM: Kênh thông báo đổi máu
 
-    // Hàm khởi tạo
     void Start()
     {
-        currentHealth = maxHealth;
+        healthPoint = defaultHealthPoint;
+        
+        // THÊM: Phát tín hiệu cập nhật UI lần đầu để thanh máu đầy lúc mới vào game
+        onHealthChanged?.Invoke(); 
     }
 
-    // Hàm nhận sát thương (Public để Bullet gọi được)
     public void TakeDamage(int damage)
     {
-        currentHealth -= damage;
-        
-        if (currentHealth < 0)
-        {
-            currentHealth = 0;
-        }
-        // Debug để kiểm tra xem máu có trừ không
-        Debug.Log(gameObject.name + " took damage. Current HP: " + currentHealth);
+        if (healthPoint <= 0) return; // Nếu đã chết thì không trừ máu nữa
 
-        if (currentHealth <= 0)
+        healthPoint -= damage;
+        
+        if (healthPoint < 0)
+        {
+            healthPoint = 0;
+        }
+        
+        Debug.Log(gameObject.name + " took damage. Current HP: " + healthPoint);
+
+        // THÊM: Phát tín hiệu cho HealthBar biết máu vừa thay đổi để kéo ngắn UI
+        onHealthChanged?.Invoke(); 
+
+        if (healthPoint <= 0)
         {
             Die();
         }
     }
 
-    // Hàm xử lý cái chết
-    // Dùng 'virtual' để class con (Player/Enemy) có thể ghi đè (override) nếu cần logic riêng
     protected virtual void Die()
     {
-        // 1. Tạo hiệu ứng nổ (nếu có gán prefab)
         if (explosionVFX != null)
         {
             Instantiate(explosionVFX, transform.position, transform.rotation);
         }
 
-        // 2. Kích hoạt sự kiện báo tử
         onDead?.Invoke();
-
-        // 3. Hủy object này khỏi game
         Destroy(gameObject);
     }
 }
