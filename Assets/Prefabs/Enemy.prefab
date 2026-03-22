@@ -180,6 +180,7 @@ GameObject:
   - component: {fileID: 2574396719396283194}
   - component: {fileID: 4427163018140270136}
   - component: {fileID: 3425381563621552888}
+  - component: {fileID: -5452773696724479009}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -358,6 +359,20 @@ MonoBehaviour:
   defaultHealthPoint: 100
   explosionVFX: {fileID: 0}
   healthPoint: 0
+--- !u!114 &-5452773696724479009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3803577094303481000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8141e1718176ac4f8b8bb7a0bb8d256, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flyPath: {fileID: 0}
+  flySpeed: 3
 --- !u!1 &8568921541143234773
 GameObject:
   m_ObjectHideFlags: 0
